@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "82wOp5eBXRaDbP5vLx/MeyMwfBjn+h72nXJfL1g01DVvTpE5n6vEXzqWHvIcYnvWpfltjsgv3N1NU+6e0zWMyA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AmjadKhalfan\\Documents\\GitHub\\rihal-pdo-usecase\\server\\server\\Web.Host.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\AmjadKhalfan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
