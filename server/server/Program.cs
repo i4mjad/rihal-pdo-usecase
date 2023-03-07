@@ -3,6 +3,8 @@ using AutoMapper;
 using Domain.MappingProfiles;
 using Domain.Repositories;
 using Domain.UseCases.AddDrillingEvent;
+using Domain.UseCases.GetDrillingEvent;
+using Web.Host.Presenters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IAddDrillingEventUseCase, AddDrillingEventUseCase>();
+builder.Services.AddTransient<IGetDrillingEventUseCase, GetDrillingEventUseCase>();
+
+builder.Services.AddTransient(typeof(IRestPresenter<>), typeof(RestPresenter<>));
+
 builder.Services.AddSingleton<IDrillingEventRepository, SqliteDrillingEventRepository>();
 
 var mapperConfig = new MapperConfiguration(mc =>

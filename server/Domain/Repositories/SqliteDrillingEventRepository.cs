@@ -32,9 +32,14 @@ public class SqliteDrillingEventRepository: IDrillingEventRepository
         
     }
     
-    public Task<DrillingEvent> Get(Guid id)
+    public async Task<DrillingEvent> Get(Guid id)
     {
-        throw new NotImplementedException();
+        using var cnn = GetConnection();
+        cnn.Open();
+        var sqlQuery = "SELECT * FROM DrillingEvents Where Id = @Id";
+        var datamodels = await cnn.QueryAsync<DrillingEventDataModel>(sqlQuery, new { Id = id.ToString() });
+        var domainModels = datamodels.Select(x => _mapper.Map<DrillingEvent>(x));
+        return domainModels.First();
     }
 
     public Task<IEnumerable<DrillingEvent>> GetAll()
