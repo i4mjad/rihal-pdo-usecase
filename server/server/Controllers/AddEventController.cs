@@ -1,8 +1,7 @@
 using Domain.UseCases.AddDrillingEvent;
 using Microsoft.AspNetCore.Mvc;
-using Web.Host.Presenters;
 
-namespace server.Controllers
+namespace Web.Host.Controllers
 {
     [ApiController]
     [Route("addEvent")]

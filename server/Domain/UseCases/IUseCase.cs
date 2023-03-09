@@ -9,3 +9,12 @@ public interface IUseCase<TRequest>
 {
     Task Execute(TRequest request);
 }
+
+
+public class EmptyRequest
+{
+}
+
+public class EmptyResponse
+{
+}

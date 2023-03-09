@@ -1,12 +1,11 @@
-using Domain.UseCases.AddDrillingEvent;
 using Domain.UseCases.GetDrillingEvent;
 using Microsoft.AspNetCore.Mvc;
 using Web.Host.Presenters;
 
-namespace server.Controllers;
+namespace Web.Host.Controllers;
 
 [ApiController]
-[Route("getEvent")]
+[Route("getEvent/{id}")]
 public class GetEventController : ControllerBase
 {
 
@@ -18,10 +17,10 @@ public class GetEventController : ControllerBase
         _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
     }
 
-    [HttpGet()]
-    public async Task<IActionResult> Get(Guid Id)
+    [HttpGet]
+    public async Task<IActionResult> Get(Guid id)
     {
-        var request = new GetDrillingEventRequest(Id);
+        var request = new GetDrillingEventRequest(id);
         await _useCase.Execute(request, _presenter);
         return _presenter.Render();
     }
