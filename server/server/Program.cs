@@ -3,6 +3,8 @@ using AutoMapper;
 using Domain.MappingProfiles;
 using Domain.Repositories;
 using Domain.UseCases.AddDrillingEvent;
+using Domain.UseCases.DeleteDrillingEvent;
+using Domain.UseCases.GetAllDrillingEvents;
 using Domain.UseCases.GetDrillingEvent;
 using Web.Host.Presenters;
 
@@ -16,7 +18,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IAddDrillingEventUseCase, AddDrillingEventUseCase>();
+//builder.Services.AddTransient<IUpdateDrillingEventUseCase, UpdateDrillingEventUseCase>();
+builder.Services.AddTransient<IDeleteDrillingEventUseCase, DeleteDrillingEventUseCase>();
 builder.Services.AddTransient<IGetDrillingEventUseCase, GetDrillingEventUseCase>();
+builder.Services.AddTransient<IGetAllDrillingEventsUseCase, GetAllDrillingEventsUseCase>();
+
 
 builder.Services.AddTransient(typeof(IRestPresenter<>), typeof(RestPresenter<>));
 

@@ -72,7 +72,7 @@ public class SqliteDrillingEventRepository: IDrillingEventRepository
     {
         using var cnn = GetConnection();
         cnn.Open();
-        var sqlQuery = $"DELETE from DrillingEvents WHERE Id = @{id}";
+        var sqlQuery = $"DELETE from DrillingEvents WHERE Id = '{id}'";
         await cnn.ExecuteAsync(sqlQuery);
     }
 }
