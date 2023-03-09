@@ -6,6 +6,7 @@ using Domain.UseCases.AddDrillingEvent;
 using Domain.UseCases.DeleteDrillingEvent;
 using Domain.UseCases.GetAllDrillingEvents;
 using Domain.UseCases.GetDrillingEvent;
+using Domain.UseCases.UpdateDrillingEvent;
 using Web.Host.Presenters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IAddDrillingEventUseCase, AddDrillingEventUseCase>();
-//builder.Services.AddTransient<IUpdateDrillingEventUseCase, UpdateDrillingEventUseCase>();
+builder.Services.AddTransient<IUpdateDrillingEventUseCase, UpdateDrillingEventUseCase>();
 builder.Services.AddTransient<IDeleteDrillingEventUseCase, DeleteDrillingEventUseCase>();
 builder.Services.AddTransient<IGetDrillingEventUseCase, GetDrillingEventUseCase>();
 builder.Services.AddTransient<IGetAllDrillingEventsUseCase, GetAllDrillingEventsUseCase>();
