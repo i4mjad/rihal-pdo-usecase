@@ -1,5 +1,6 @@
 using System.Data;
 using AutoMapper;
+using AutoMapper.Execution;
 using Dapper;
 using Domain.Entites;
 using Microsoft.Data.Sqlite;
@@ -18,7 +19,7 @@ public class SqliteDrillingEventRepository: IDrillingEventRepository
     private IDbConnection GetConnection()
     {
         var dbPath = Path.Combine(Environment.CurrentDirectory, "AppDb.db");
-        var connectionString = string.Format("Data Source={0};", dbPath);
+        var connectionString = $"Data Source={dbPath};";
         return new SqliteConnection(connectionString);
     }
     
@@ -27,7 +28,7 @@ public class SqliteDrillingEventRepository: IDrillingEventRepository
         var drillingEventDataModel = _mapper.Map<DrillingEventDataModel>(drillingEvent);
         using var cnn = GetConnection();
         cnn.Open();
-        var sqlQuery = $"INSERT INTO DrillingEvents (Id, StartDepth, EndDepth, EventType) VALUES(@Id, @StartDepth, @EndDepth, @EventType)";
+        const string sqlQuery = $"INSERT INTO DrillingEvents (Id, StartDepth, EndDepth, EventType) VALUES(@Id, @StartDepth, @EndDepth, @EventType)";
         await cnn.ExecuteAsync(sqlQuery, drillingEventDataModel);
         
     }
@@ -36,24 +37,42 @@ public class SqliteDrillingEventRepository: IDrillingEventRepository
     {
         using var cnn = GetConnection();
         cnn.Open();
-        var sqlQuery = "SELECT * FROM DrillingEvents Where Id = @Id";
-        var datamodels = await cnn.QueryAsync<DrillingEventDataModel>(sqlQuery, new { Id = id.ToString() });
-        var domainModels = datamodels.Select(x => _mapper.Map<DrillingEvent>(x));
-        return domainModels.First();
+        const string sqlQuery = "SELECT * FROM DrillingEvents Where Id = @Id";
+        var drillingEventDataModels = await cnn.QueryAsync<DrillingEventDataModel>(sqlQuery, new { Id = id.ToString() });
+        var drillingEvents = drillingEventDataModels.Select(x => _mapper.Map<DrillingEvent>(x));
+        return drillingEvents.First();
     }
 
-    public Task<IEnumerable<DrillingEvent>> GetAll()
+    public async Task<IEnumerable<DrillingEvent>> GetAll()
     {
-        throw new NotImplementedException();
+        using var cnn = GetConnection();
+        cnn.Open();
+        const string sqlQuery = "SELECT * FROM DrillingEvents";
+        var drillingEventDataModels = await cnn.QueryAsync<DrillingEventDataModel>(sqlQuery);
+        var drillingEvents = drillingEventDataModels.Select(drillingEventDataModel => _mapper.Map<DrillingEvent>(drillingEventDataModel));
+        return drillingEvents;
     }
 
-    public Task Update(DrillingEvent drillingEvent)
+    public async Task Update(DrillingEvent drillingEvent)
     {
-        throw new NotImplementedException();
+        var drillingEventDataModel = _mapper.Map<DrillingEventDataModel>(drillingEvent);
+        using var cnn = GetConnection();
+        cnn.Open();
+        const string sqlQuery = "UPDATE DrillingEvents " +
+                                "SET " +
+                                "StartDepth = @StartDepth, " +
+                                "EndDepth = @EndDepth, " +
+                                "EventType = @EventType " +
+                                "WHERE Id = @Id";
+
+        await cnn.ExecuteAsync(sqlQuery, drillingEventDataModel);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        using var cnn = GetConnection();
+        cnn.Open();
+        var sqlQuery = $"DELETE from DrillingEvents WHERE Id = @{id}";
+        await cnn.ExecuteAsync(sqlQuery);
     }
 }
