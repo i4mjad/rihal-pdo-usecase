@@ -7,6 +7,9 @@ using Domain.UseCases.DeleteDrillingEvent;
 using Domain.UseCases.GetAllDrillingEvents;
 using Domain.UseCases.GetDrillingEvent;
 using Domain.UseCases.UpdateDrillingEvent;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Web.Host.Presenters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +49,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

@@ -1,5 +1,5 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { DrillingEvent } from '../app.models';
+import { DrillingEvent, GetDrillingEventsResponse } from '../app.models';
 import {
   AddEvent,
   UpdateEvent,
@@ -39,7 +39,7 @@ export class AppState {
   @Action(AddEvent)
   addEvent(ctx: StateContext<AppStateModel>, action: AddEvent) {
     return this.http.put<DrillingEvent>(
-      'https://example.com/api/addEvent',
+      'https://localhost:7094/addEvent',
       action.drillingEvent
     );
   }
@@ -47,20 +47,20 @@ export class AppState {
   @Action(UpdateEvent)
   updateEvent(ctx: StateContext<AppStateModel>, action: UpdateEvent) {
     return this.http.put<DrillingEvent>(
-      `https://example.com/api/updateEvent/${action.drillingEvent.id}`,
+      `https://localhost:7094/updateEvent/${action.drillingEvent.id}`,
       action.drillingEvent
     );
   }
 
   @Action(DeleteEvent)
   deleteEvent(ctx: StateContext<AppStateModel>, action: DeleteEvent) {
-    return this.http.delete(`https://example.com/api/deleteEvent/${action.id}`);
+    return this.http.delete(`https://localhost:7094/deleteEvent/${action.id}`);
   }
 
   @Action(GetEvent)
   getEvent(ctx: StateContext<AppStateModel>, action: GetEvent) {
     return this.http
-      .get<DrillingEvent>(`https://example.com/api/getEvent/${action.id}`)
+      .get<DrillingEvent>(`https://localhost:7094/getEvent/${action.id}`)
       .pipe(
         tap((event) => {
           ctx.patchState({ selectedEvent: event });
@@ -71,10 +71,10 @@ export class AppState {
   @Action(GetEvents)
   getEvents(ctx: StateContext<AppStateModel>) {
     return this.http
-      .get<DrillingEvent[]>('https://localhost:7094/api/getEvents')
+      .get<GetDrillingEventsResponse>('https://localhost:7094/getAllEvents')
       .pipe(
-        tap((events) => {
-          ctx.patchState({ drillingEvents: events });
+        tap((response) => {
+          ctx.patchState({ drillingEvents: response.drillingEvents });
         })
       );
   }

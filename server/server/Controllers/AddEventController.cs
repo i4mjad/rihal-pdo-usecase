@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Domain.UseCases.AddDrillingEvent;
 using Microsoft.AspNetCore.Mvc;
 

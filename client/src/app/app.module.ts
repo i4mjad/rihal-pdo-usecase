@@ -14,7 +14,7 @@ import { MaterialModule } from './material/material.module';
 import { NgxsModule } from '@ngxs/store';
 
 import { AppState } from './state/app.state';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 @NgModule({
   imports: [
     BrowserModule,
@@ -22,6 +22,7 @@ import { AppState } from './state/app.state';
     MaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    HttpClientModule,
     NgxsModule.forRoot([AppState], {
       developmentMode: true,
     }),
@@ -34,7 +35,7 @@ import { AppState } from './state/app.state';
     AddEventComponent,
     UpdateEventComponent,
   ],
-  providers: [],
+  providers: [HttpClient],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

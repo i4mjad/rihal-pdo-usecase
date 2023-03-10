@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Select, Selector } from '@ngxs/store';
+import { Select, Selector, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { DrillingEvent, DrillingEventsType } from 'src/app/app.models';
 
 import { ELEMENT_DATA } from 'src/app/fake.data';
+import { GetEvents } from 'src/app/state/app.actions';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
@@ -16,9 +17,10 @@ export class ManageDrillingEventsComponent implements OnInit {
   @Select(AppState.drillingEvents) events$: Observable<DrillingEvent[]>;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {
+    this.store.dispatch(new GetEvents());
     this.events$.subscribe((events) => {
       this.dataSource = events;
     });
