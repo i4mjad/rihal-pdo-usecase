@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { DrillingEvent, DrillingEventsType } from 'src/app/app.models';
 
 import { ELEMENT_DATA } from 'src/app/fake.data';
-import { GetEvents } from 'src/app/state/app.actions';
+import { DeleteEvent, GetEvents } from 'src/app/state/app.actions';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
@@ -34,7 +34,7 @@ export class ManageDrillingEventsComponent implements OnInit {
     this.router.navigateByUrl(`/update-drililng-event/${id}`);
   }
   deleteEvent(id: string): void {
-    //TODO: dispatch the delete action
+    this.store.dispatch(new DeleteEvent(id));
   }
 
   getEventType(index: any): string {

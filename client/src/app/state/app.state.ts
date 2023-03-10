@@ -1,5 +1,9 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { DrillingEvent, GetDrillingEventsResponse } from '../app.models';
+import {
+  DrillingEvent,
+  GetDrillingEventResponse,
+  GetDrillingEventsResponse,
+} from '../app.models';
 import {
   AddEvent,
   UpdateEvent,
@@ -48,7 +52,11 @@ export class AppState {
   updateEvent(ctx: StateContext<AppStateModel>, action: UpdateEvent) {
     return this.http.put<DrillingEvent>(
       `https://localhost:7094/updateEvent/${action.drillingEvent.id}`,
-      action.drillingEvent
+      {
+        startDepth: action.drillingEvent.startDepth,
+        endDepth: action.drillingEvent.endDepth,
+        eventNumber: action.drillingEvent.eventType,
+      }
     );
   }
 
@@ -60,10 +68,14 @@ export class AppState {
   @Action(GetEvent)
   getEvent(ctx: StateContext<AppStateModel>, action: GetEvent) {
     return this.http
-      .get<DrillingEvent>(`https://localhost:7094/getEvent/${action.id}`)
+      .get<GetDrillingEventResponse>(
+        `https://localhost:7094/getEvent/${action.id}`
+      )
       .pipe(
-        tap((event) => {
-          ctx.patchState({ selectedEvent: event });
+        tap((response) => {
+          console.log(response.drillingEvent);
+
+          ctx.patchState({ selectedEvent: response.drillingEvent });
         })
       );
   }

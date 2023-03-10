@@ -15,3 +15,6 @@ export enum DrillingEventsType {
 export interface GetDrillingEventsResponse {
   drillingEvents: DrillingEvent[];
 }
+export interface GetDrillingEventResponse {
+  drillingEvent: DrillingEvent;
+}
