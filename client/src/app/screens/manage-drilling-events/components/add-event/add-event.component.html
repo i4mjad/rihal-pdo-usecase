@@ -1,1 +1,38 @@
-<p>add-event works!</p>
+<mat-card>
+  <mat-card-title> Add Drilling Event </mat-card-title>
+  <mat-card-content>
+    <form fxLayout="column" [formGroup]="addEventFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Start Depth</mat-label>
+        <input matInput formControlName="startDepth" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>End Depth</mat-label>
+        <input matInput formControlName="endDepth" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Event Type</mat-label>
+        <mat-select formControlName="eventTypeNumber">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{ getEventType(type) }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <button mat-flat-button color="primary" (click)="addEvent()">
+      Add Drilling Event
+    </button>
+    <button
+      mat-flat-button
+      color="secondery"
+      (click)="navigateToManageEventsPage()"
+    >
+      Back
+    </button>
+  </mat-card-actions>
+</mat-card>
