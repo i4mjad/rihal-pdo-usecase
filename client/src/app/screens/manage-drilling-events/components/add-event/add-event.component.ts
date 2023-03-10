@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DrillingEventsType } from 'src/app/app.models';
+import { Store } from '@ngxs/store';
+import { AddEvent } from 'src/app/state/app.actions';
 
 @Component({
   selector: 'app-add-event',
@@ -19,7 +21,7 @@ export class AddEventComponent implements OnInit {
   types = Object.values(DrillingEventsType).filter(
     (value) => typeof value === 'number'
   );
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {}
 
@@ -31,7 +33,12 @@ export class AddEventComponent implements OnInit {
     this.router.navigateByUrl('/manage-drililng-events');
   }
   addEvent(): void {
-    //TODO: Dispatch the add action here
-    console.log(this.addEventFormGroup.value);
+    this.store.dispatch(
+      new AddEvent(
+        this.addEventFormGroup.controls['startDepth'].value,
+        this.addEventFormGroup.controls['endDepth'].value,
+        this.addEventFormGroup.controls['eventTypeNumber'].value
+      )
+    );
   }
 }

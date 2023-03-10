@@ -42,10 +42,11 @@ export class AppState {
 
   @Action(AddEvent)
   addEvent(ctx: StateContext<AppStateModel>, action: AddEvent) {
-    return this.http.put<DrillingEvent>(
-      'https://localhost:7094/addEvent',
-      action.drillingEvent
-    );
+    return this.http.put<DrillingEvent>('https://localhost:7094/addEvent', {
+      startDepth: action.startDepth,
+      endDepth: action.endDepth,
+      eventType: action.eventType,
+    });
   }
 
   @Action(UpdateEvent)
@@ -62,7 +63,17 @@ export class AppState {
 
   @Action(DeleteEvent)
   deleteEvent(ctx: StateContext<AppStateModel>, action: DeleteEvent) {
-    return this.http.delete(`https://localhost:7094/deleteEvent/${action.id}`);
+    return this.http
+      .delete(`https://localhost:7094/deleteEvent/${action.id}`)
+      .pipe(
+        tap(() => {
+          const state = ctx.getState();
+          const filteredItems = state.drillingEvents.filter(
+            (item) => item.id !== action.id
+          );
+          ctx.patchState({ drillingEvents: filteredItems });
+        })
+      );
   }
 
   @Action(GetEvent)
@@ -73,8 +84,6 @@ export class AppState {
       )
       .pipe(
         tap((response) => {
-          console.log(response.drillingEvent);
-
           ctx.patchState({ selectedEvent: response.drillingEvent });
         })
       );

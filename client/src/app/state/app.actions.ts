@@ -3,7 +3,11 @@ import { DrillingEvent } from '../app.models';
 export class AddEvent {
   static readonly type = '[DrillingEvent] Add';
 
-  constructor(public drillingEvent: DrillingEvent) {}
+  constructor(
+    public startDepth: number,
+    public endDepth: number,
+    public eventType: number
+  ) {}
 }
 
 export class UpdateEvent {
