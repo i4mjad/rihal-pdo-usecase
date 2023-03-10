@@ -1,5 +1,4 @@
 import { DrillingEvent } from './app.models';
-import { DrillingEventsType } from './screens/manage-drilling-events/DrillingEventsType';
 
 export let ELEMENT_DATA: DrillingEvent[] = [
   {

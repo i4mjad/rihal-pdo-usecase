@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DrillingEventsType } from '../../DrillingEventsType';
+
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DrillingEventsType } from 'src/app/app.models';
 
 @Component({
   selector: 'app-add-event',

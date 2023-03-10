@@ -4,3 +4,11 @@ export interface DrillingEvent {
   startDepth: number;
   endDepth: number;
 }
+
+export enum DrillingEventsType {
+  StuckPipe,
+  MudLoss,
+  CirculationLoss,
+  DrillBit,
+}
+

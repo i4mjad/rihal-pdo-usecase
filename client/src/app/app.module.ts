@@ -11,8 +11,21 @@ import { AddEventComponent } from './screens/manage-drilling-events/components/a
 import { UpdateEventComponent } from './screens/manage-drilling-events/components/update-event/update-event.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material/material.module';
+import { NgxsModule } from '@ngxs/store';
+
+import { AppState } from './state/app.state';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    NgxsModule.forRoot([AppState], {
+      developmentMode: true,
+    }),
+  ],
   declarations: [
     AppComponent,
     ManageDrillingEventsComponent,
@@ -20,13 +33,6 @@ import { MaterialModule } from './material/material.module';
     ViewDrillingEventsComponent,
     AddEventComponent,
     UpdateEventComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

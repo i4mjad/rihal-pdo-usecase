@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { DrillingEventsType } from '../../DrillingEventsType';
-import { DrillingEvent } from 'src/app/app.models';
+
+import { DrillingEvent, DrillingEventsType } from 'src/app/app.models';
 import { ELEMENT_DATA } from 'src/app/fake.data';
 
 @Component({
