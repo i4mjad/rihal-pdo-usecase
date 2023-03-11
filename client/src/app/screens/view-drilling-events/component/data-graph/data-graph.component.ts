@@ -1,21 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import * as am5 from '@amcharts/amcharts5';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import * as am5xy from '@amcharts/amcharts5/xy';
+import { DrillingEvent } from 'src/app/app.models';
 @Component({
   selector: 'app-data-graph',
   templateUrl: './data-graph.component.html',
   styleUrls: ['./data-graph.component.scss'],
 })
-export class DataGraphComponent implements OnInit {
-  @Input() data!: any;
+export class DataGraphComponent implements OnChanges {
+  @Input() data!: DrillingEvent[];
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnChanges(): void {
+    console.log('inner', this.data);
 
-  createGraph(): void {
+    am5.array.each(am5.registry.rootElements, function (root) {
+      if (root) {
+        if (root.dom.id == 'chartdiv') {
+          root.dispose();
+        }
+      }
+    });
+
     let root = am5.Root.new('chartdiv');
-    console.log(root);
+
     // Set themes
     root.setThemes([am5themes_Animated.new(root)]);
 
@@ -37,50 +46,6 @@ export class DataGraphComponent implements OnInit {
         x: am5.p50,
       })
     );
-
-    // Data
-    // let data = [
-    //   {
-    //     name: 'Events',
-    //     eventName: 'Stuck Pipe',
-    //     startDepth: 50,
-    //     endDepth: 150,
-    //     columnSettings: {
-    //       fill: 'red',
-    //       width: am5.percent(100),
-    //     },
-    //   },
-    //   {
-    //     name: 'Events',
-    //     eventName: 'Mud Loos',
-    //     startDepth: 100,
-    //     endDepth: 200,
-    //     columnSettings: {
-    //       fill: 'gray',
-    //       width: am5.percent(50),
-    //     },
-    //   },
-    //   {
-    //     name: 'Events',
-    //     eventName: 'Circulation Loss',
-    //     startDepth: 150,
-    //     endDepth: 200,
-    //     columnSettings: {
-    //       fill: 'black',
-    //       width: am5.percent(25),
-    //     },
-    //   },
-    //   {
-    //     name: 'Events',
-    //     eventName: 'Stuck Pipe',
-    //     startDepth: 400,
-    //     endDepth: 450,
-    //     columnSettings: {
-    //       fill: 'red',
-    //       width: am5.percent(100),
-    //     },
-    //   },
-    // ];
 
     // Create axes
     let xRenderer = am5xy.AxisRendererX.new(root, {});

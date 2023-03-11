@@ -18,11 +18,13 @@ namespace Web.Host.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult> Create(double startDepth,double endDepth,int eventNumber)
+        public async Task<ActionResult> Create(AddEventPayload payload)
         {
-            var request = new AddDrillingEventRequest(startDepth, endDepth, eventNumber);
+            var request = new AddDrillingEventRequest(payload.StartDepth, payload.EndDepth, payload.EventNumber);
             await _useCase.Execute(request);
             return new OkResult();
         }
     }
+
+    public record AddEventPayload(double StartDepth, double EndDepth, int EventNumber);
 }
