@@ -15,6 +15,7 @@ import { NgxsModule } from '@ngxs/store';
 
 import { AppState } from './state/app.state';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { DataGraphComponent } from './screens/view-drilling-events/component/data-graph/data-graph.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -34,6 +35,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     ViewDrillingEventsComponent,
     AddEventComponent,
     UpdateEventComponent,
+    DataGraphComponent,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

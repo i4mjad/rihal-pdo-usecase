@@ -15,8 +15,8 @@ import { AppState } from 'src/app/state/app.state';
 })
 export class ManageDrillingEventsComponent implements OnInit {
   @Select(AppState.drillingEvents) events$: Observable<DrillingEvent[]>;
+  dataSource: DrillingEvent[];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
   constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {
